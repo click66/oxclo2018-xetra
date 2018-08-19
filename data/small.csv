@@ -1,0 +1,5 @@
+ISIN,Mnemonic,SecurityDesc,SecurityType,Currency,SecurityID,Date,Time,StartPrice,MaxPrice,MinPrice,EndPrice,TradedVolume,NumberOfTrades
+"CA9628791027","SII","WHEATON PREC. METALS","Common stock","EUR",2504200,2017-08-22,19:30,16,16,16,16,0,1
+"US2536511031","DBD","DIEBOLD NIXDORF DL 1,25","Common stock","EUR",2506473,2017-08-22,19:30,15.305,15.305,15.305,15.305,0,1
+"US88579Y1010","MMM","3M CO.             DL-,01","Common stock","EUR",2506577,2017-08-22,19:30,173.25,173.25,173.25,173.25,0,1
+"US9633201069","WHR","WHIRLPOOL CORP.      DL 1","Common stock","EUR",2506600,2017-08-22,19:30,142.05,142.05,142.05,142.05,0,1
