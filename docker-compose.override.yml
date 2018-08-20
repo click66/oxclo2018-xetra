@@ -4,3 +4,9 @@ services:
   spark-master:
     ports:
       - 4040:8080
+    volumes:
+      - .:/app
+
+  spark-worker-1:
+    volumes:
+      - .:/app
