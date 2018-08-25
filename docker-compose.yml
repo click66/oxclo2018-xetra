@@ -4,12 +4,15 @@ services:
   spark-master:
     build: docker/master
 
-  spark-worker-1:
+  spark-worker:
     build: docker/worker
+    command: spark://spark-master:7077
     depends_on:
       - spark-master
 
-  spark-worker-2:
-    build: docker/worker
+  spark-submit:
+    build: docker/submit
     depends_on:
       - spark-master
+    environment:
+      MASTER_HOST: spark-master

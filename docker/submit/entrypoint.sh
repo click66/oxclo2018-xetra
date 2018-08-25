@@ -1,0 +1,1 @@
+spark-submit --master spark://$MASTER_HOST:7077 $@

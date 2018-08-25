@@ -1,8 +1,16 @@
+from pyspark import SparkContext
 from pyspark.sql import SQLContext
-from pyspark.sql.functions import to_utc_timestamp,from_utc_timestamp,concat,col,date_format,lit
+
+from utils.filter_hours import filter_hours
 
 
-def main(spark_context):
+def main(spark_context: SparkContext):
+    # Tasks
+    # 1) Init the context
+    # 2) Read the data
+    # 3) Filter the data to the data on which we want to run analysis
+    # 4) Run all the reports, outputting the results
+    # 5) Exit.
     sql_context = SQLContext(spark_context)
 
     data = sql_context.read.csv(
@@ -11,9 +19,14 @@ def main(spark_context):
         inferSchema="true"
     )
 
-    data = data.withColumn(
-        "Timestamp",
-        to_utc_timestamp(concat(date_format(col("Date"), "YYYY-MM-dd "), col("Time")), "GMT")
-    )
+    data = filter_hours(data)
 
-    print data
+    data.show()
+
+    # data = data.withColumn(
+    #     "Timestamp",
+    #     to_utc_timestamp(concat(date_format(col("Date"), "YYYY-MM-dd "), col("Time")), "GMT")
+    # )
+    #
+    # print(data)
+

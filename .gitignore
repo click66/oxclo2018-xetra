@@ -105,3 +105,6 @@ venv.bak/
 
 # IDE
 .idea/
+
+# CI
+test_results.xml
