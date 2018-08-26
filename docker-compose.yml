@@ -6,5 +6,6 @@ services:
 
   spark-worker:
     build: docker/worker
+    command: spark://spark-master:7077
     depends_on:
       - spark-master

@@ -105,3 +105,9 @@ venv.bak/
 
 # IDE
 .idea/
+
+# Spark
+spark-warehouse/
+
+# CI
+test_results.xml
