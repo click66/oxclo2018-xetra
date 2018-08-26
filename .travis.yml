@@ -1,0 +1,9 @@
+sudo: required
+language: bash
+services:
+  - docker
+jobs:
+  include:
+    - stage: test
+      script:
+        - docker-compose run --rm spark-submit /app/tests/run.py

@@ -15,6 +15,7 @@ services:
     build: docker/submit
     depends_on:
       - spark-master
+      - spark-worker
     environment:
       MASTER_HOST: spark-master
     volumes:
