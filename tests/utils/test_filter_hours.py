@@ -13,7 +13,7 @@ def test_filters_hours(spark, data_dir):
     assert testdata.count() == 24
 
     filtered = filter_hours(testdata)
-    assert filtered.count() == 11
+    assert filtered.count() == 12
 
 
 def test_filtering_hours_leaves_columns_unaffected(spark, data_dir):
