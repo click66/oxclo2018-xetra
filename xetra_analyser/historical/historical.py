@@ -1,32 +1,24 @@
 from pyspark import SparkContext
 from pyspark.sql import SQLContext
 
-from utils.filter_hours import filter_hours
+from xetra_analyser.utils.log import log
+from xetra_analyser.utils.filter_hours import filter_hours
 
 
 def main(spark_context: SparkContext):
-    # Tasks
-    # 1) Init the context
-    # 2) Read the data
-    # 3) Filter the data to the data on which we want to run analysis
-    # 4) Run all the reports, outputting the results
-    # 5) Exit.
+    # Connect to Spark
     sql_context = SQLContext(spark_context)
 
+    # Read the data from source
     data = sql_context.read.csv(
-        "file:///app/data/small.csv",
+        "file:///app/data/dbs/*",
         header="true",
         inferSchema="true"
     )
+    log("Read " + str(data.count()) + " rows from source")
 
+    # Filter the data to hours
     data = filter_hours(data)
+    log("Filtered data to " + str(data.count()) + " rows")
 
     data.show()
-
-    # data = data.withColumn(
-    #     "Timestamp",
-    #     to_utc_timestamp(concat(date_format(col("Date"), "YYYY-MM-dd "), col("Time")), "GMT")
-    # )
-    #
-    # print(data)
-
