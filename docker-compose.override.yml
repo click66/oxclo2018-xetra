@@ -7,6 +7,15 @@ services:
     volumes:
       - .:/app
 
-  spark-worker-1:
+  spark-worker:
+    volumes:
+      - .:/app
+
+  spark-submit:
+    build: docker/submit
+    depends_on:
+      - spark-master
+    environment:
+      MASTER_HOST: spark-master
     volumes:
       - .:/app
