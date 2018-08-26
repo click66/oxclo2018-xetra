@@ -1,6 +1,7 @@
 from pyspark import SparkContext
 from pyspark.sql import SQLContext
 
+from xetra_analyser.historical import daily_summary
 from xetra_analyser.utils.log import log
 from xetra_analyser.utils.filter_hours import filter_hours
 
@@ -21,4 +22,5 @@ def main(spark_context: SparkContext):
     data = filter_hours(data)
     log("Filtered data to " + str(data.count()) + " rows")
 
-    data.show()
+    # Run all reports
+    daily_summary.run(data).show()
