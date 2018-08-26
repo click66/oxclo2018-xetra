@@ -6,15 +6,22 @@ def run_job(trades: DataFrame):
     """
     Generates daily summaries of provided trade data. Returns a DataFrame with the following columns:
      - Date
-     - Number of Trades
-    :param data: DataFrame
+     - NumberOfTrades
+    :param trades: DataFrame
     :return: DataFrame
     """
 
-    keyed_by_data = trades.rdd\
-        .map(lambda row: (row.Date, row))\
-        .reduceByKey(lambda a, b: Row(NumberOfTrades=a.NumberOfTrades+b.NumberOfTrades))
+    def to_tuple(row: Row):
+        return row.Date, row
 
-    keyed_by_data.toDF().show()
+    def to_row(tuple):
+        return tuple[1]
 
-    return keyed_by_data.toDF()
+    def reducer(accum, row):
+        accum = Row(
+            Date=accum.Date,
+            NumberOfTrades=(accum.NumberOfTrades + row.NumberOfTrades)
+        )
+        return accum
+
+    return trades.rdd.map(to_tuple).reduceByKey(reducer).map(to_row).toDF()
