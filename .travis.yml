@@ -7,3 +7,5 @@ jobs:
     - stage: test
       script:
         - docker-compose run --rm spark-submit /app/tests/run.py
+      after_script:
+        - docker-compose down -v
