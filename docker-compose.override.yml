@@ -7,6 +7,10 @@ services:
     volumes:
       - .:/app
 
-  spark-worker-1:
+  spark-worker:
+    volumes:
+      - .:/app
+
+  spark-submit:
     volumes:
       - .:/app
