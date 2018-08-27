@@ -1,5 +1,6 @@
 from pyspark.sql import DataFrame, Row
 from pyspark.sql.functions import *
+from pyspark.sql.types import datetime
 
 
 def run_job(trades: DataFrame):
@@ -11,6 +12,12 @@ def run_job(trades: DataFrame):
     :return: DataFrame
     """
 
+    def make_row(date: datetime, number_of_trades: int):
+        return Row(
+            Date=date,
+            NumberOfTrades=number_of_trades
+        )
+
     def to_tuple(row: Row):
         return row.Date, row
 
@@ -18,9 +25,9 @@ def run_job(trades: DataFrame):
         return tuple[1]
 
     def reducer(accum, row):
-        accum = Row(
-            Date=accum.Date,
-            NumberOfTrades=(accum.NumberOfTrades + row.NumberOfTrades)
+        accum = make_row(
+            accum.Date,
+            accum.NumberOfTrades + row.NumberOfTrades
         )
         return accum
 

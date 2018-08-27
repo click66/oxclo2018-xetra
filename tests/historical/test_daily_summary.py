@@ -1,5 +1,5 @@
 from pyspark.sql import DataFrame, Row, SQLContext
-from historical.daily_summary import run_job
+from xetra_analyser.historical.daily_summary import run_job
 
 
 def provide_test_dataframe(spark, data_dir):

@@ -1,5 +1,5 @@
 from pyspark.sql import DataFrame, SQLContext
-from utils.filter_hours import filter_hours
+from xetra_analyser.utils.filter_hours import filter_hours
 
 
 def provide_test_dataframe(spark, data_dir):
