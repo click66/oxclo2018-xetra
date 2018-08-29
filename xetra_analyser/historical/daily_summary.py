@@ -1,5 +1,5 @@
 from pyspark.sql import DataFrame, Row
-from pyspark.sql.functions import *
+from pyspark.sql.functions import desc
 from pyspark.sql.types import datetime
 
 
@@ -8,6 +8,7 @@ def run_job(trades: DataFrame):
     Generates daily summaries of provided trade data. Returns a DataFrame with the following columns:
      - Date
      - NumberOfTrades
+    DataFrame is ordered in chronological reverse order.
     :param trades: DataFrame
     :return: DataFrame
     """
@@ -31,4 +32,5 @@ def run_job(trades: DataFrame):
         )
         return accum
 
-    return trades.rdd.map(to_tuple).reduceByKey(reducer).map(to_row).toDF()
+    return trades.rdd.map(to_tuple).reduceByKey(reducer).map(to_row).toDF()\
+        .orderBy(desc('Date'))

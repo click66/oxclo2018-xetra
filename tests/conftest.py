@@ -3,7 +3,7 @@ import pytest
 from spark import get_spark
 
 
-@pytest.fixture(scope="function")
+@pytest.fixture(scope="session")
 def spark():
     sc = get_spark()
     sc.setLogLevel("WARN")
