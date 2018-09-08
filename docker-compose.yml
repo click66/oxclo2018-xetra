@@ -3,9 +3,11 @@ version: '3'
 services:
   spark-master:
     build: docker/master
+    image: click66/oxclo-spark-master:latest
 
   spark-worker:
     build: docker/worker
     command: spark://spark-master:7077
     depends_on:
       - spark-master
+    image: click66/oxclo-spark-worker:latest
