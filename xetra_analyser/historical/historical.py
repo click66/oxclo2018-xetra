@@ -5,17 +5,18 @@ from xetra_analyser.historical import daily_summary
 from xetra_analyser.utils.log import log
 from xetra_analyser.utils.filter_hours import filter_hours
 
+import config
+
 
 def main(spark_context: SparkContext):
     # Connect to Spark
     sql_context = SQLContext(spark_context)
 
     # Read the data from source
-    data = sql_context.read.csv(
-        "file:///app/data/dbs/*",
-        header="true",
-        inferSchema="true"
-    )
+    hdfs_config = config.HDFS_CONFIG
+
+    source = "hdfs://" + hdfs_config.get("host") + ":" + str(hdfs_config.get("port")) + "/" + hdfs_config.get("path")
+    data = sql_context.read.csv(source, header="true", inferSchema="true")
     log("Read " + str(data.count()) + " rows from source")
 
     # Filter the data to hours
