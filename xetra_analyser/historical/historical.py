@@ -18,8 +18,8 @@ def main(spark_context: SparkContext):
     # Read the data from source
     hdfs_config = config.HDFS_CONFIG
     source = "hdfs://" + hdfs_config.get("host") + ":" + str(hdfs_config.get("port")) + "/" + hdfs_config.get("path")
-    
-    data = sql_context.read.csv("file:///app/data/dbs/*", header="true", inferSchema="true") # Test
+
+    data = sql_context.read.csv("file:///app/data/test_sample/*", header="true", inferSchema="true") # Test
     log("Read " + str(data.count()) + " rows from source")
 
     # Filter the data to hours
@@ -27,5 +27,5 @@ def main(spark_context: SparkContext):
     log("Filtered data to " + str(data.count()) + " rows")
 
     # Run all reports
-    daily_summary.run_job(data).show()
+    output_dir = "output"
     daily_security_summary.run_job(data).show()
