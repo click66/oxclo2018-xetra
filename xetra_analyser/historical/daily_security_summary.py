@@ -32,7 +32,7 @@ def run_job(trades: DataFrame):
         if start_price == 0:
             return float("inf")
 
-        return (end_price - start_price) / start_price
+        return (float(end_price) - float(start_price)) / float(start_price)
 
 
     with_roc = trades.withColumn("ROC", udf(calculate_roc, FloatType())(trades.StartPrice, trades.EndPrice))
