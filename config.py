@@ -1,5 +1,7 @@
+import os
+
 SPARK_CONFIG = {
-    'host': 'spark-master',
+    'host': os.environ['MASTER_HOST'],
     'port': 7077
 }
 
